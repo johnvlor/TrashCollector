@@ -76,15 +76,14 @@ namespace TrashCollector.Controllers
         // GET: Pickups/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             Pickup pickup = db.Pickup.Find(id);
-            if (pickup == null)
-            {
-                return HttpNotFound();
-            }
+
+            //var loggedUser = User.Identity.GetUserId();
+            //var customers = db.Customer.Single(c => c.UserID == loggedUser);
+
+            ViewBag.PickupId = new SelectList(db.Pickup, "ID", "Day"/*, customers.PickupID*/);
+
             return View(pickup);
         }
 
@@ -93,14 +92,19 @@ namespace TrashCollector.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Day,AlternateDay")] Pickup pickup)
-        {
+        public ActionResult Edit(Pickup pickup, Customer customer)
+        {            
             if (ModelState.IsValid)
             {
-                db.Entry(pickup).State = EntityState.Modified;
+                var loggedUser = User.Identity.GetUserId();            
+                var customers = db.Customer.Single(c => c.UserID == loggedUser);
+
+                customers.PickupID = customer.PickupID;
+                db.Entry(customers).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(pickup);
         }
 

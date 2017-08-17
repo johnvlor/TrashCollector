@@ -116,7 +116,7 @@ namespace TrashCollector.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AddressID = new SelectList(db.Address, "ID", "Street", customer.AddressID);
+            //ViewBag.AddressID = new SelectList(db.Address, "ID", "Street", customer.AddressID);
             return View(customer);
         }
 
