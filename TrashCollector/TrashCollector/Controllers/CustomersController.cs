@@ -23,9 +23,9 @@ namespace TrashCollector.Controllers
             var loggedUser = User.Identity.GetUserId();
             var customer = /*db.Customer.Include(c => c.Address).ToList();*/
             (from c in db.Customer
-             //join a in db.Address on c.AddressID equals a.ID
+             join a in db.Address on c.AddressID equals a.ID
              join u in db.Users on c.UserID equals u.Id
-             where c.UserID == loggedUser
+             where (c.UserID == loggedUser)
              select c).Include("Address").ToList();
 
             return View(customer);
@@ -53,7 +53,13 @@ namespace TrashCollector.Controllers
         {
             ViewBag.Email = User.Identity.GetUserName();
             //ViewBag.AddressID = new SelectList(db.Address, "ID", "Street");
-            return View();
+
+            var types = db.AccountType.ToList();
+            Customer customer = new Customer()
+            {
+                AccountTypes = types
+            };
+            return View(customer);
         }
 
         // POST: Customers/Create
@@ -61,7 +67,7 @@ namespace TrashCollector.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Phone,AddressID,Email")] Customer customer, [Bind(Include = "ID,Street,City,State,Zip")] Address address)
+        public ActionResult Create(Customer customer, Address address)
         {
             if (ModelState.IsValid)
             {
@@ -118,12 +124,13 @@ namespace TrashCollector.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customer.Find(id);
-            if (customer == null)
+            //Customer customer = db.Customer.Find(id);
+            var customers = db.Customer.Include(m => m.Address).SingleOrDefault(m => m.ID == id);
+            if (customers == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View(customers);
         }
 
         // POST: Customers/Delete/5

@@ -216,7 +216,44 @@
     <Compile Include="Migrations\201708161254213_ChangeOwnerIDToUserID.Designer.cs">
       <DependentUpon>201708161254213_ChangeOwnerIDToUserID.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708162022038_ModifyAddressTableAndAddRolesTable.cs" />
+    <Compile Include="Migrations\201708162022038_ModifyAddressTableAndAddRolesTable.Designer.cs">
+      <DependentUpon>201708162022038_ModifyAddressTableAndAddRolesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708162026169_AddDbsetForCityStateZipRolesTables.cs" />
+    <Compile Include="Migrations\201708162026169_AddDbsetForCityStateZipRolesTables.Designer.cs">
+      <DependentUpon>201708162026169_AddDbsetForCityStateZipRolesTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708162028429_AddRoleForeignkeysToCustomerWorker.cs" />
+    <Compile Include="Migrations\201708162028429_AddRoleForeignkeysToCustomerWorker.Designer.cs">
+      <DependentUpon>201708162028429_AddRoleForeignkeysToCustomerWorker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708162057443_AddRolesToRegisterViewModel.cs" />
+    <Compile Include="Migrations\201708162057443_AddRolesToRegisterViewModel.Designer.cs">
+      <DependentUpon>201708162057443_AddRolesToRegisterViewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708162131389_RemoveRoleTable.cs" />
+    <Compile Include="Migrations\201708162131389_RemoveRoleTable.Designer.cs">
+      <DependentUpon>201708162131389_RemoveRoleTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708170119316_AddAccountTypeTable.cs" />
+    <Compile Include="Migrations\201708170119316_AddAccountTypeTable.Designer.cs">
+      <DependentUpon>201708170119316_AddAccountTypeTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708170122591_AddIEnumerableAccountType.cs" />
+    <Compile Include="Migrations\201708170122591_AddIEnumerableAccountType.Designer.cs">
+      <DependentUpon>201708170122591_AddIEnumerableAccountType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708171311456_UpdateAddressTable.cs" />
+    <Compile Include="Migrations\201708171311456_UpdateAddressTable.Designer.cs">
+      <DependentUpon>201708171311456_UpdateAddressTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708171316140_RemoveTables.cs" />
+    <Compile Include="Migrations\201708171316140_RemoveTables.Designer.cs">
+      <DependentUpon>201708171316140_RemoveTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountType.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -293,6 +330,8 @@
     <Content Include="Views\Workers\Details.cshtml" />
     <Content Include="Views\Workers\Edit.cshtml" />
     <Content Include="Views\Workers\Index.cshtml" />
+    <Content Include="Views\Shared\_WorkerLayout.cshtml" />
+    <Content Include="Views\Shared\_CustomerLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -327,6 +366,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708161254213_ChangeOwnerIDToUserID.resx">
       <DependentUpon>201708161254213_ChangeOwnerIDToUserID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708162022038_ModifyAddressTableAndAddRolesTable.resx">
+      <DependentUpon>201708162022038_ModifyAddressTableAndAddRolesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708162026169_AddDbsetForCityStateZipRolesTables.resx">
+      <DependentUpon>201708162026169_AddDbsetForCityStateZipRolesTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708162028429_AddRoleForeignkeysToCustomerWorker.resx">
+      <DependentUpon>201708162028429_AddRoleForeignkeysToCustomerWorker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708162057443_AddRolesToRegisterViewModel.resx">
+      <DependentUpon>201708162057443_AddRolesToRegisterViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708162131389_RemoveRoleTable.resx">
+      <DependentUpon>201708162131389_RemoveRoleTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708170119316_AddAccountTypeTable.resx">
+      <DependentUpon>201708170119316_AddAccountTypeTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708170122591_AddIEnumerableAccountType.resx">
+      <DependentUpon>201708170122591_AddIEnumerableAccountType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708171311456_UpdateAddressTable.resx">
+      <DependentUpon>201708171311456_UpdateAddressTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708171316140_RemoveTables.resx">
+      <DependentUpon>201708171316140_RemoveTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
