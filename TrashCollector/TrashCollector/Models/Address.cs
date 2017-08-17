@@ -18,6 +18,7 @@ namespace TrashCollector.Models
 
         public string State { get; set; }
 
+        [RegularExpression(@"\d{5}$", ErrorMessage = "Invalid Zip")]
         public string Zip { get; set; }
 
     }

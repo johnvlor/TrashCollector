@@ -156,7 +156,6 @@ namespace TrashCollector.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
-                    //RoleID = model.Role.ID
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

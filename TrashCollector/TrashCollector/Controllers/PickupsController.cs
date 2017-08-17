@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -7,142 +8,124 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TrashCollector.Models;
-using Microsoft.AspNet.Identity;
-using System.Data.Entity.Core.Objects;
 
 namespace TrashCollector.Controllers
 {
-    public class CustomersController : Controller
+    public class PickupsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Customers
+        // GET: Pickups
         public ActionResult Index()
         {
-            //ViewBag.Email = User.Identity.GetUserName();
             var loggedUser = User.Identity.GetUserId();
-            var customer = /*db.Customer.Include(c => c.Address).ToList();*/
-            (from c in db.Customer
-             join a in db.Address on c.AddressID equals a.ID
-             join u in db.Users on c.UserID equals u.Id
-             where (c.UserID == loggedUser)
-             select c).Include("Address").ToList();
 
-            return View(customer);
+            var pickups = db.Pickup.Where(c => db.Customer.Any(a => a.PickupID == c.ID));
+
+            //(from c in db.Customer
+            // join u in db.Users on c.UserID equals u.Id
+            // where (c.UserID == loggedUser)
+            // select c).Include("Pickup").ToList();
+
+            return View(pickups);
         }
 
-        // GET: Customers/Details/5
+        // GET: Pickups/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ////Customer customer = db.Customer.Find(id);
-            var customers = db.Customer.Include(m => m.Address).SingleOrDefault(m => m.ID == id);
-            if (customers == null)
+            Pickup pickup = db.Pickup.Find(id);
+            if (pickup == null)
             {
                 return HttpNotFound();
             }
-
-            return View(customers);
+            return View(pickup);
         }
 
-        // GET: Customers/Create
+        // GET: Pickups/Create
         public ActionResult Create()
         {
-            ViewBag.Email = User.Identity.GetUserName();
-            //ViewBag.AddressID = new SelectList(db.Address, "ID", "Street");
-
-            var types = db.AccountType.ToList();
             var pickups = db.Pickup.ToList();
             Customer customer = new Customer()
             {
-                AccountTypes = types,
                 Pickups = pickups
             };
-
             return View(customer);
         }
 
-        // POST: Customers/Create
+        // POST: Pickups/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Customer customer, Address address)
+        public ActionResult Create([Bind(Include = "ID,Day,AlternateDay")] Pickup pickup)
         {
             if (ModelState.IsValid)
             {
-                customer.UserID = User.Identity.GetUserId();    
-                customer.Email = User.Identity.GetUserName();
-                db.Address.Add(address);
-                db.Customer.Add(customer);
+                db.Pickup.Add(pickup);
                 db.SaveChanges();
-                
                 return RedirectToAction("Index");
             }
 
-            return View(customer);
+            return View(pickup);
         }
 
-        // GET: Customers/Edit/5
+        // GET: Pickups/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //Customer customer = db.Customer.Find(id);
-            var customers = db.Customer.Include(m => m.Address).SingleOrDefault(m => m.ID == id);
-            if (customers == null)
+            Pickup pickup = db.Pickup.Find(id);
+            if (pickup == null)
             {
                 return HttpNotFound();
             }
-            //ViewBag.AddressID = new SelectList(db.Address, "ID", "Street", customer.AddressID);
-            return View(customers);
+            return View(pickup);
         }
 
-        // POST: Customers/Edit/5
+        // POST: Pickups/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Phone,AddressID,Email")] Customer customer, [Bind(Include = "ID,Street,City,State,Zip")] Address address)
+        public ActionResult Edit([Bind(Include = "ID,Day,AlternateDay")] Pickup pickup)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customer).State = EntityState.Modified;
+                db.Entry(pickup).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AddressID = new SelectList(db.Address, "ID", "Street", customer.AddressID);
-            return View(customer);
+            return View(pickup);
         }
 
-        // GET: Customers/Delete/5
+        // GET: Pickups/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //Customer customer = db.Customer.Find(id);
-            var customers = db.Customer.Include(m => m.Address).SingleOrDefault(m => m.ID == id);
-            if (customers == null)
+            Pickup pickup = db.Pickup.Find(id);
+            if (pickup == null)
             {
                 return HttpNotFound();
             }
-            return View(customers);
+            return View(pickup);
         }
 
-        // POST: Customers/Delete/5
+        // POST: Pickups/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Customer customer = db.Customer.Find(id);
-            db.Customer.Remove(customer);
+            Pickup pickup = db.Pickup.Find(id);
+            db.Pickup.Remove(pickup);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

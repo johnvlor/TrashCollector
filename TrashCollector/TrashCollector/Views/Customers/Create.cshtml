@@ -90,6 +90,14 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.PickupID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.PickupID, new SelectList(Model.Pickups, "ID", "Day"), "", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PickupID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.AccountTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.AccountTypeID, new SelectList(Model.AccountTypes, "ID", "Type"), "", new { htmlAttributes = new { @class = "form-control" } })
