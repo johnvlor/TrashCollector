@@ -18,9 +18,12 @@ namespace TrashCollector.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
+        Customer customer;
 
         public AccountController()
         {
+            customer = new Customer();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )

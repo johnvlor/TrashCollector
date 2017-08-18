@@ -17,6 +17,13 @@ namespace TrashCollector.Models
         [Display(Name = "New Pick Up Day")]
         public string AlternateDay { get; set; }
 
-        //public IEnumerable<Pickup> Pickups { get; set; }
+        //[Display(Name = "Temporary or Permanent")]
+        //public string TempOrPermanent { get; set; }
+
+        //[Display(Name = "Start Date")]
+        //public DateTime StartDate { get; set; }
+
+        //[Display(Name = "End Date")]
+        //public DateTime EndDate { get; set; }
     }
 }

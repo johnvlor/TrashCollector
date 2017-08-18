@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -11,133 +10,107 @@ using TrashCollector.Models;
 
 namespace TrashCollector.Controllers
 {
-    public class PickupsController : Controller
+    public class BillingsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Pickups
+        // GET: Billings
         public ActionResult Index()
         {
-            var loggedUser = User.Identity.GetUserId();
-
-            var pickups = db.Pickup.Where(c => db.Customer.Any(a => a.PickupID == c.ID && a.UserID == loggedUser));
-
-            //(from c in db.Customer
-            // join u in db.Users on c.UserID equals u.Id
-            // where (c.UserID == loggedUser)
-            // select c).Include("Pickup").ToList();
-
-            return View(pickups);
+            return View(db.Billing.ToList());
         }
 
-        // GET: Pickups/Details/5
+        // GET: Billings/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pickup pickup = db.Pickup.Find(id);
-            if (pickup == null)
+            Billing billing = db.Billing.Find(id);
+            if (billing == null)
             {
                 return HttpNotFound();
             }
-            return View(pickup);
+            return View(billing);
         }
 
-        // GET: Pickups/Create
+        // GET: Billings/Create
         public ActionResult Create()
         {
-            var pickups = db.Pickup.ToList();
-            Customer customer = new Customer()
-            {
-                Pickups = pickups
-            };
-            return View(customer);
+            return View();
         }
 
-        // POST: Pickups/Create
+        // POST: Billings/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Day,AlternateDay")] Pickup pickup)
+        public ActionResult Create([Bind(Include = "ID,Charges")] Billing billing)
         {
             if (ModelState.IsValid)
             {
-                db.Pickup.Add(pickup);
+                db.Billing.Add(billing);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(pickup);
+            return View(billing);
         }
 
-        // GET: Pickups/Edit/5
+        // GET: Billings/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            Pickup pickup = db.Pickup.Find(id);
-
-            var loggedUser = User.Identity.GetUserId();
-            var customers = db.Customer.Single(c => c.UserID == loggedUser);
-
-            ViewBag.PickupId = new SelectList(db.Pickup, "ID", "Day", customers.PickupID);
-
-            if (pickup == null)
+            Billing billing = db.Billing.Find(id);
+            if (billing == null)
             {
                 return HttpNotFound();
             }
-            return View(pickup);
+            return View(billing);
         }
 
-        // POST: Pickups/Edit/5
+        // POST: Billings/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Pickup pickup, Customer customer)
-        {            
+        public ActionResult Edit([Bind(Include = "ID,Charges")] Billing billing)
+        {
             if (ModelState.IsValid)
             {
-                var loggedUser = User.Identity.GetUserId();            
-                var customers = db.Customer.Single(c => c.UserID == loggedUser);
-
-                customers.PickupID = customer.PickupID;
-                db.Entry(customers).State = EntityState.Modified;
+                db.Entry(billing).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(pickup);
+            return View(billing);
         }
 
-        // GET: Pickups/Delete/5
+        // GET: Billings/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pickup pickup = db.Pickup.Find(id);
-            if (pickup == null)
+            Billing billing = db.Billing.Find(id);
+            if (billing == null)
             {
                 return HttpNotFound();
             }
-            return View(pickup);
+            return View(billing);
         }
 
-        // POST: Pickups/Delete/5
+        // POST: Billings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Pickup pickup = db.Pickup.Find(id);
-            db.Pickup.Remove(pickup);
+            Billing billing = db.Billing.Find(id);
+            db.Billing.Remove(billing);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

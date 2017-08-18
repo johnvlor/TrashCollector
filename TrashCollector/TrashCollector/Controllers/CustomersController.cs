@@ -19,7 +19,6 @@ namespace TrashCollector.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            //ViewBag.Email = User.Identity.GetUserName();
             var loggedUser = User.Identity.GetUserId();
             var customer = /*db.Customer.Include(c => c.Address).ToList();*/
             (from c in db.Customer
@@ -40,6 +39,7 @@ namespace TrashCollector.Controllers
             }
             ////Customer customer = db.Customer.Find(id);
             var customers = db.Customer.Include(m => m.Address).SingleOrDefault(m => m.ID == id);
+
             if (customers == null)
             {
                 return HttpNotFound();
@@ -73,9 +73,10 @@ namespace TrashCollector.Controllers
         public ActionResult Create(Customer customer, Address address)
         {
             if (ModelState.IsValid)
-            {
+            {               
                 customer.UserID = User.Identity.GetUserId();    
                 customer.Email = User.Identity.GetUserName();
+                customer.BillingID = 1;
                 db.Address.Add(address);
                 db.Customer.Add(customer);
                 db.SaveChanges();

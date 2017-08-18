@@ -189,6 +189,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BillingsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -261,10 +262,51 @@
     <Compile Include="Migrations\201708171351006_AddPickupForeignkeyToCustomer.Designer.cs">
       <DependentUpon>201708171351006_AddPickupForeignkeyToCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708181208449_AddCustomerForeignkeyToUser.cs" />
+    <Compile Include="Migrations\201708181208449_AddCustomerForeignkeyToUser.Designer.cs">
+      <DependentUpon>201708181208449_AddCustomerForeignkeyToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708181230415_UpdateUserForeignKey.cs" />
+    <Compile Include="Migrations\201708181230415_UpdateUserForeignKey.Designer.cs">
+      <DependentUpon>201708181230415_UpdateUserForeignKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708181239396_RemoveUserForeignKey.cs" />
+    <Compile Include="Migrations\201708181239396_RemoveUserForeignKey.Designer.cs">
+      <DependentUpon>201708181239396_RemoveUserForeignKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708181241276_AddCustomerForeignkeyToUser1.cs" />
+    <Compile Include="Migrations\201708181241276_AddCustomerForeignkeyToUser1.Designer.cs">
+      <DependentUpon>201708181241276_AddCustomerForeignkeyToUser1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708181248197_RemoveUserForeignKey1.cs" />
+    <Compile Include="Migrations\201708181248197_RemoveUserForeignKey1.Designer.cs">
+      <DependentUpon>201708181248197_RemoveUserForeignKey1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708181250283_AddUserForeignkeyToCustomer.cs" />
+    <Compile Include="Migrations\201708181250283_AddUserForeignkeyToCustomer.Designer.cs">
+      <DependentUpon>201708181250283_AddUserForeignkeyToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708181303242_UpdateUserForeignKey1.cs" />
+    <Compile Include="Migrations\201708181303242_UpdateUserForeignKey1.Designer.cs">
+      <DependentUpon>201708181303242_UpdateUserForeignKey1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708181341582_AddBillingTable.cs" />
+    <Compile Include="Migrations\201708181341582_AddBillingTable.Designer.cs">
+      <DependentUpon>201708181341582_AddBillingTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708181343231_AddBillingTable1.cs" />
+    <Compile Include="Migrations\201708181343231_AddBillingTable1.Designer.cs">
+      <DependentUpon>201708181343231_AddBillingTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708181350020_AddBillingForeginkeyToCustomer.cs" />
+    <Compile Include="Migrations\201708181350020_AddBillingForeginkeyToCustomer.Designer.cs">
+      <DependentUpon>201708181350020_AddBillingForeginkeyToCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountType.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Billing.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -347,6 +389,11 @@
     <Content Include="Views\Pickups\Details.cshtml" />
     <Content Include="Views\Pickups\Edit.cshtml" />
     <Content Include="Views\Pickups\Index.cshtml" />
+    <Content Include="Views\Billings\Create.cshtml" />
+    <Content Include="Views\Billings\Delete.cshtml" />
+    <Content Include="Views\Billings\Details.cshtml" />
+    <Content Include="Views\Billings\Edit.cshtml" />
+    <Content Include="Views\Billings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -414,6 +461,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708171351006_AddPickupForeignkeyToCustomer.resx">
       <DependentUpon>201708171351006_AddPickupForeignkeyToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708181208449_AddCustomerForeignkeyToUser.resx">
+      <DependentUpon>201708181208449_AddCustomerForeignkeyToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708181230415_UpdateUserForeignKey.resx">
+      <DependentUpon>201708181230415_UpdateUserForeignKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708181239396_RemoveUserForeignKey.resx">
+      <DependentUpon>201708181239396_RemoveUserForeignKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708181241276_AddCustomerForeignkeyToUser1.resx">
+      <DependentUpon>201708181241276_AddCustomerForeignkeyToUser1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708181248197_RemoveUserForeignKey1.resx">
+      <DependentUpon>201708181248197_RemoveUserForeignKey1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708181250283_AddUserForeignkeyToCustomer.resx">
+      <DependentUpon>201708181250283_AddUserForeignkeyToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708181303242_UpdateUserForeignKey1.resx">
+      <DependentUpon>201708181303242_UpdateUserForeignKey1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708181341582_AddBillingTable.resx">
+      <DependentUpon>201708181341582_AddBillingTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708181343231_AddBillingTable1.resx">
+      <DependentUpon>201708181343231_AddBillingTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708181350020_AddBillingForeginkeyToCustomer.resx">
+      <DependentUpon>201708181350020_AddBillingForeginkeyToCustomer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
