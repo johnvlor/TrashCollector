@@ -2,17 +2,27 @@
 
 @{
     ViewBag.Title = "Index";
+    int PickupsOwed = (int)ViewBag.pickupDaysOwed;
+    DateTime? date = DateTime.Now;
 }
 
-<h2>Index</h2>
+
+<h2>Billing Statement</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @*@Html.ActionLink("Create New", "Create")*@
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Charges)
+            Number of Pickups in @date.Value.ToString("MMMM")
+        </th>
+        <th>
+            Remaining Pickups
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Charges)*@
+            Remaining Balance Due
         </th>
         <th></th>
     </tr>
@@ -20,12 +30,21 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Charges)
+            @PickupsOwed
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @(PickupsOwed-2)
+        </td>
+        <td>
+            $@(item.Charges* PickupsOwed)
+            @*$@Html.DisplayFor(modelItem => item.Charges)*@
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
         </td>
     </tr>
 }

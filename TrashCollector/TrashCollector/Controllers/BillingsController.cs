@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,7 +18,56 @@ namespace TrashCollector.Controllers
         // GET: Billings
         public ActionResult Index()
         {
-            return View(db.Billing.ToList());
+            var loggedUser = User.Identity.GetUserId();
+
+            var billings = db.Billing.Where(c => db.Customer.Any(a => a.BillingID == c.ID && a.UserID == loggedUser));
+
+            var newCustomer = db.Customer.First(c => c.UserID == loggedUser);
+            int pickupday = newCustomer.PickupID;
+
+            DateTime today = DateTime.Now;
+            DateTime dtFirst = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+
+            ViewBag.pickupDaysOwed = CountPickupDays(dtFirst, today, pickupday);
+
+            return View(billings);
+        }
+
+        private int CountPickupDays(DateTime startDate, DateTime endDate, int pickupday)
+        {
+            int count = 0;
+            DayOfWeek dow = 0;
+
+            switch (pickupday)
+            {
+                case 1:
+                    dow = DayOfWeek.Monday;
+                    break;
+                case 2:
+                    dow = DayOfWeek.Tuesday;
+                    break;
+                case 3:
+                    dow = DayOfWeek.Wednesday;
+                    break;
+                case 4:
+                    dow = DayOfWeek.Thursday;
+                    break;
+                case 5:
+                    dow = DayOfWeek.Friday;
+                    break;
+                default:
+                    break;
+            }
+            
+            for (DateTime dt = startDate; dt < endDate; dt = dt.AddDays(1.0))
+            {
+                if (dt.DayOfWeek == dow)
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
 
         // GET: Billings/Details/5
