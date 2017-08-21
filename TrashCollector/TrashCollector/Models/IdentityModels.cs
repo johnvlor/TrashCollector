@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace TrashCollector.Models
 {
@@ -14,6 +16,16 @@ namespace TrashCollector.Models
         //public Customer Customer { get; set; }
         //public int CustomerID { get; set; }
 
+        //[ForeignKey("Worker")]       
+        //public int? WorkerID { get; set; }
+        //public Worker Worker { get; set; }
+
+        [ForeignKey("AccountType")]        
+        [Display(Name = "Account Type")]
+        public int AccountTypeID { get; set; }
+        public AccountType AccountType { get; set; }
+
+        public IEnumerable<AccountType> AccountTypes { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

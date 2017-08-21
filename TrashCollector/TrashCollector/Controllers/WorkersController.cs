@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -17,7 +18,10 @@ namespace TrashCollector.Controllers
         // GET: Workers
         public ActionResult Index()
         {
-            return View(db.Worker.ToList());
+            var loggedUser = User.Identity.GetUserId();
+            var workers = db.Worker.Where(w => w.UserID == loggedUser).Include(w => w.ApplicationUser);
+
+            return View(workers);
         }
 
         // GET: Workers/Details/5
@@ -46,10 +50,11 @@ namespace TrashCollector.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,LastName")] Worker worker)
+        public ActionResult Create(Worker worker)
         {
             if (ModelState.IsValid)
             {
+                worker.UserID = User.Identity.GetUserId();
                 db.Worker.Add(worker);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -122,6 +127,110 @@ namespace TrashCollector.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // GET: Workers
+        public ActionResult IndexRoute()
+        {
+            var loggedUser = User.Identity.GetUserId();
+            var workers = db.Worker.Where(w => w.UserID == loggedUser).Include(w => w.ApplicationUser);
+
+            return View(workers);
+        }
+
+        public ActionResult IndexRouteCustomer()
+        {
+            var loggedUser = User.Identity.GetUserId();
+            var workers =
+                from w in db.Worker
+                join c in db.Customer on w.Zip equals c.Address.Zip
+                where w.UserID == loggedUser
+                select w;
+            var customers =
+                (from c in db.Customer
+                join w in db.Worker on c.Address.Zip equals w.Zip
+                where w.UserID == loggedUser
+                select c).Include("Address");
+
+            return View(customers);
+        }
+
+        // GET: Workers/CreateRoute
+        public ActionResult CreateRoute()
+        {
+            //var loggedUser = User.Identity.GetUserId();
+            //var workers = db.Worker.Single(w => w.UserID == loggedUser);
+
+            ViewBag.Route = new SelectList(db.Address.Select(z => z.Zip)/*.Distinct()*/, "Zip");
+
+            return View();
+        }
+
+        // POST: Workers/CreateRoute
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateRoute(Worker worker, [Bind(Include = "Zip")] Address address)
+        {
+            if (ModelState.IsValid)
+            {
+                var loggedUser = User.Identity.GetUserId();
+                var workers = db.Worker.Single(w => w.UserID == loggedUser);
+
+                workers.Zip = address.Zip;
+                db.Entry(workers).State = EntityState.Modified;
+                db.SaveChanges();
+
+                //db.Worker.Add(worker);
+                //db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Route = new SelectList(db.Address, "Zip");
+
+            return View(worker);
+        }
+
+        // GET: Workers/Edit/5
+        public ActionResult EditRoute()
+        {
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Worker worker = db.Worker.Find(id);
+            var loggedUser = User.Identity.GetUserId();
+            var worker = db.Worker.Single(w => w.UserID == loggedUser);
+
+            ViewBag.Route = new SelectList(db.Address/*.Distinct()*/, "ID","Zip",worker.Zip);
+            //if (worker == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return View();
+        }
+
+        // POST: Workers/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditRoute(Worker worker, Address address)
+        {
+            if (ModelState.IsValid)
+            {
+                var loggedUser = User.Identity.GetUserId();
+                var workers = db.Worker.Single(w => w.UserID == loggedUser);
+
+                workers.Zip = address.Zip;
+
+                db.Entry(worker).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.Route = new SelectList(db.Address/*.Distinct()*/, "ID", "Zip", worker.Zip);
+            return View(worker);
         }
     }
 }

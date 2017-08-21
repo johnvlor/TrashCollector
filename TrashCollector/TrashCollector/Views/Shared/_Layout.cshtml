@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    var type = ViewBag.AccountRole;
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,6 +25,22 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                   @*@{ if (Request.IsAuthenticated)
+                       {
+                           if (type == "Customer")
+                           {
+                            <li>@Html.ActionLink("My Profile", "Index", "Customers")</li>
+                            <li>@Html.ActionLink("My Pick Ups", "Index", "Pickups")</li>
+                            <li>@Html.ActionLink("My Payment", "Index", "Billings")</li>
+                           }
+                           else if (type == "Worker")
+                           {
+                            <li>@Html.ActionLink("Worker Profile", "Index", "Workers")</li>
+                            <li>@Html.ActionLink("My Route", "IndexRoute", "Workers")</li>
+                            }
+                        }
+                       }*@
+
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>

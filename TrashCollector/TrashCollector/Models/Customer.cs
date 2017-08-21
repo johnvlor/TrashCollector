@@ -28,15 +28,15 @@ namespace TrashCollector.Models
         public Address Address { get; set; }
         public int AddressID { get; set; }
 
-        public AccountType AccountType { get; set; }
-        [Display(Name = "Account Type")]
-        public int AccountTypeID { get; set; }
+        //public AccountType AccountType { get; set; }
+        //[Display(Name = "Account Type")]
+        //public int AccountTypeID { get; set; }
 
-        public IEnumerable<AccountType> AccountTypes { get; set; }
-
+        //public IEnumerable<AccountType> AccountTypes { get; set; }
+        
         public Pickup Pickup { get; set; }
         [Display(Name = "Schedule a Pickup Day")]
-        public int PickupID { get; set; }
+        public int? PickupID { get; set; }
 
         public IEnumerable<Pickup> Pickups { get; set; }
 

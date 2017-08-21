@@ -18,9 +18,6 @@
             Number of Pickups in @date.Value.ToString("MMMM")
         </th>
         <th>
-            Remaining Pickups
-        </th>
-        <th>
             @*@Html.DisplayNameFor(model => model.Charges)*@
             Remaining Balance Due
         </th>
@@ -31,9 +28,6 @@
     <tr>
         <td>
             @PickupsOwed
-        </td>
-        <td>
-            @(PickupsOwed-2)
         </td>
         <td>
             $@(item.Charges* PickupsOwed)

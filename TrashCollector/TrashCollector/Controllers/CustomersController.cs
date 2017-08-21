@@ -19,15 +19,10 @@ namespace TrashCollector.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            var loggedUser = User.Identity.GetUserId();
-            var customer = /*db.Customer.Include(c => c.Address).ToList();*/
-            (from c in db.Customer
-             join a in db.Address on c.AddressID equals a.ID
-             join u in db.Users on c.UserID equals u.Id
-             where (c.UserID == loggedUser)
-             select c).Include("Address").ToList();
-
-            return View(customer);
+            ViewBag.AccountRole = "Customer";
+           var loggedUser = User.Identity.GetUserId();
+            var customers = db.Customer.Where(c => c.UserID == loggedUser).Include(m => m.Address);
+            return View(customers);
         }
 
         // GET: Customers/Details/5
@@ -37,7 +32,7 @@ namespace TrashCollector.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ////Customer customer = db.Customer.Find(id);
+
             var customers = db.Customer.Include(m => m.Address).SingleOrDefault(m => m.ID == id);
 
             if (customers == null)
@@ -54,15 +49,15 @@ namespace TrashCollector.Controllers
             ViewBag.Email = User.Identity.GetUserName();
             //ViewBag.AddressID = new SelectList(db.Address, "ID", "Street");
 
-            var types = db.AccountType.ToList();
-            var pickups = db.Pickup.ToList();
-            Customer customer = new Customer()
-            {
-                AccountTypes = types,
-                Pickups = pickups
-            };
+            //var types = db.AccountType.ToList();
+            ////var pickups = db.Pickup.ToList();
+            //Customer customer = new Customer()
+            //{
+            //    AccountTypes = types,
+            //    //Pickups = pickups
+            //};
 
-            return View(customer);
+            return View();
         }
 
         // POST: Customers/Create
@@ -81,7 +76,7 @@ namespace TrashCollector.Controllers
                 db.Customer.Add(customer);
                 db.SaveChanges();
                 
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Pickups");
             }
 
             return View(customer);

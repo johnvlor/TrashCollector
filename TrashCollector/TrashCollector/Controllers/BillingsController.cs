@@ -23,7 +23,8 @@ namespace TrashCollector.Controllers
             var billings = db.Billing.Where(c => db.Customer.Any(a => a.BillingID == c.ID && a.UserID == loggedUser));
 
             var newCustomer = db.Customer.First(c => c.UserID == loggedUser);
-            int pickupday = newCustomer.PickupID;
+            
+            int? pickupday = newCustomer.PickupID;
 
             DateTime today = DateTime.Now;
             DateTime dtFirst = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
@@ -33,7 +34,7 @@ namespace TrashCollector.Controllers
             return View(billings);
         }
 
-        private int CountPickupDays(DateTime startDate, DateTime endDate, int pickupday)
+        private int CountPickupDays(DateTime startDate, DateTime endDate, int? pickupday)
         {
             int count = 0;
             DayOfWeek dow = 0;

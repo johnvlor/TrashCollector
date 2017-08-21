@@ -302,6 +302,42 @@
     <Compile Include="Migrations\201708181350020_AddBillingForeginkeyToCustomer.Designer.cs">
       <DependentUpon>201708181350020_AddBillingForeginkeyToCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708181910085_AddAddressForeignkeyToWorker.cs" />
+    <Compile Include="Migrations\201708181910085_AddAddressForeignkeyToWorker.Designer.cs">
+      <DependentUpon>201708181910085_AddAddressForeignkeyToWorker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708181952348_ChangePickupIDForeignkeyToNull.cs" />
+    <Compile Include="Migrations\201708181952348_ChangePickupIDForeignkeyToNull.Designer.cs">
+      <DependentUpon>201708181952348_ChangePickupIDForeignkeyToNull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708182104428_AddUserForeignkeyAndZipColumnToWorker.cs" />
+    <Compile Include="Migrations\201708182104428_AddUserForeignkeyAndZipColumnToWorker.Designer.cs">
+      <DependentUpon>201708182104428_AddUserForeignkeyAndZipColumnToWorker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708182106336_AddAccountTypeForeignkeyToWorker.cs" />
+    <Compile Include="Migrations\201708182106336_AddAccountTypeForeignkeyToWorker.Designer.cs">
+      <DependentUpon>201708182106336_AddAccountTypeForeignkeyToWorker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708201118146_AddWorkerForeginkeyToUser.cs" />
+    <Compile Include="Migrations\201708201118146_AddWorkerForeginkeyToUser.Designer.cs">
+      <DependentUpon>201708201118146_AddWorkerForeginkeyToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708201124067_AddAccountTypeForeignkeyToUser.cs" />
+    <Compile Include="Migrations\201708201124067_AddAccountTypeForeignkeyToUser.Designer.cs">
+      <DependentUpon>201708201124067_AddAccountTypeForeignkeyToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708201129425_AddIEnumerableAccounttypesToUser.cs" />
+    <Compile Include="Migrations\201708201129425_AddIEnumerableAccounttypesToUser.Designer.cs">
+      <DependentUpon>201708201129425_AddIEnumerableAccounttypesToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708201747570_RemoveAccountTypeForeignKeys.cs" />
+    <Compile Include="Migrations\201708201747570_RemoveAccountTypeForeignKeys.Designer.cs">
+      <DependentUpon>201708201747570_RemoveAccountTypeForeignKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708201813223_RemoveAddressForeignkeyFromWorker.cs" />
+    <Compile Include="Migrations\201708201813223_RemoveAddressForeignkeyFromWorker.Designer.cs">
+      <DependentUpon>201708201813223_RemoveAddressForeignkeyFromWorker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountType.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -327,6 +363,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Controllers\_ViewStart.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -394,6 +431,11 @@
     <Content Include="Views\Billings\Details.cshtml" />
     <Content Include="Views\Billings\Edit.cshtml" />
     <Content Include="Views\Billings\Index.cshtml" />
+    <Content Include="Views\Workers\CreateRoute.cshtml" />
+    <Content Include="Views\Workers\IndexRoute.cshtml" />
+    <Content Include="Views\Workers\EditRoute.cshtml" />
+    <Content Include="Views\Home\IndexCustomer.cshtml" />
+    <Content Include="Views\Home\IndexWorker.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -491,6 +533,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708181350020_AddBillingForeginkeyToCustomer.resx">
       <DependentUpon>201708181350020_AddBillingForeginkeyToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708181910085_AddAddressForeignkeyToWorker.resx">
+      <DependentUpon>201708181910085_AddAddressForeignkeyToWorker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708181952348_ChangePickupIDForeignkeyToNull.resx">
+      <DependentUpon>201708181952348_ChangePickupIDForeignkeyToNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708182104428_AddUserForeignkeyAndZipColumnToWorker.resx">
+      <DependentUpon>201708182104428_AddUserForeignkeyAndZipColumnToWorker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708182106336_AddAccountTypeForeignkeyToWorker.resx">
+      <DependentUpon>201708182106336_AddAccountTypeForeignkeyToWorker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708201118146_AddWorkerForeginkeyToUser.resx">
+      <DependentUpon>201708201118146_AddWorkerForeginkeyToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708201124067_AddAccountTypeForeignkeyToUser.resx">
+      <DependentUpon>201708201124067_AddAccountTypeForeignkeyToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708201129425_AddIEnumerableAccounttypesToUser.resx">
+      <DependentUpon>201708201129425_AddIEnumerableAccounttypesToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708201747570_RemoveAccountTypeForeignKeys.resx">
+      <DependentUpon>201708201747570_RemoveAccountTypeForeignKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708201813223_RemoveAddressForeignkeyFromWorker.resx">
+      <DependentUpon>201708201813223_RemoveAddressForeignkeyFromWorker.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

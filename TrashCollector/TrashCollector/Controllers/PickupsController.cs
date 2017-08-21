@@ -19,13 +19,7 @@ namespace TrashCollector.Controllers
         public ActionResult Index()
         {
             var loggedUser = User.Identity.GetUserId();
-
             var pickups = db.Pickup.Where(c => db.Customer.Any(a => a.PickupID == c.ID && a.UserID == loggedUser));
-
-            //(from c in db.Customer
-            // join u in db.Users on c.UserID equals u.Id
-            // where (c.UserID == loggedUser)
-            // select c).Include("Pickup").ToList();
 
             return View(pickups);
         }
@@ -48,12 +42,12 @@ namespace TrashCollector.Controllers
         // GET: Pickups/Create
         public ActionResult Create()
         {
-            var pickups = db.Pickup.ToList();
-            Customer customer = new Customer()
-            {
-                Pickups = pickups
-            };
-            return View(customer);
+            var loggedUser = User.Identity.GetUserId();
+            var customers = db.Customer.Single(c => c.UserID == loggedUser);
+
+            ViewBag.PickupId = new SelectList(db.Pickup, "ID", "Day");
+
+            return View();
         }
 
         // POST: Pickups/Create
@@ -61,15 +55,23 @@ namespace TrashCollector.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Day,AlternateDay")] Pickup pickup)
+        public ActionResult Create(Pickup pickup, Customer customer)
         {
             if (ModelState.IsValid)
             {
-                db.Pickup.Add(pickup);
+                var loggedUser = User.Identity.GetUserId();
+                var customers = db.Customer.Single(c => c.UserID == loggedUser);
+
+                customers.PickupID = customer.PickupID;
+                db.Entry(customers).State = EntityState.Modified;
                 db.SaveChanges();
+
+                //db.Pickup.Add(pickup);
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.PickupId = new SelectList(db.Pickup, "ID", "Day", customer.PickupID);
             return View(pickup);
         }
 

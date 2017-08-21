@@ -77,12 +77,24 @@ namespace TrashCollector.Controllers
                 return View(model);
             }
 
+            var user = db.Users.Single(u => u.Email == model.Email);
+            
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
+                    if (user.AccountTypeID == 1)
+                    {
+                        ViewBag.AccountRole = "Customer";
+                        return RedirectToAction("IndexCustomer", "Home");
+                    }
+                    else if (user.AccountTypeID == 2)
+                    {
+                        ViewBag.AccountRole = "Worker";
+                        return RedirectToAction("IndexWorker", "Home");
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -143,6 +155,7 @@ namespace TrashCollector.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.AccountTypeID = new SelectList(db.AccountType, "ID", "Type");
             return View();
         }
 
@@ -159,6 +172,7 @@ namespace TrashCollector.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
+                    AccountTypeID = model.AccountTypeID
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -172,7 +186,17 @@ namespace TrashCollector.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     //return RedirectToAction("Index", "Home");
-                    return RedirectToAction("Create", "Customers");
+                    //return RedirectToAction("Create", "Customers");
+
+                    if (user.AccountTypeID == 1)
+                    {
+                        return RedirectToAction("Create", "Customers");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Create", "Workers");
+                    }
+
                 }
                 AddErrors(result);
             }
