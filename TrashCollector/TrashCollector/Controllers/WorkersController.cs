@@ -86,7 +86,7 @@ namespace TrashCollector.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Zip")] Worker worker)
+        public ActionResult Edit(Worker worker)
         {
             if (ModelState.IsValid)
             {
@@ -158,13 +158,13 @@ namespace TrashCollector.Controllers
             //Worker worker = db.Worker.Find(id);
             var loggedUser = User.Identity.GetUserId();
             var worker = db.Worker.Single(w => w.UserID == loggedUser);
-
+            //var worker = db.Worker.SingleOrDefault(w => w.ID == id);
             ViewBag.Route = new SelectList(db.Address.Select(a => a.Zip).Distinct(), "Zip");
-            //if (worker == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            return View();
+            if (worker == null)
+            {
+                return HttpNotFound();
+            }
+            return View(worker);
         }
 
         // POST: Workers/Edit/5
@@ -172,18 +172,18 @@ namespace TrashCollector.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditRoute(Worker worker, Address address)
+        public ActionResult EditRoute(Worker worker)
         {
             if (ModelState.IsValid)
             {
                 var loggedUser = User.Identity.GetUserId();
                 var workers = db.Worker.Single(w => w.UserID == loggedUser);
 
-                workers.Zip = address.Zip;
+                workers.Zip = worker.Zip;
 
-                db.Entry(worker).State = EntityState.Modified;
+                db.Entry(workers).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexRoute");
             }
             ViewBag.Route = new SelectList(db.Address.Select(a => a.Zip).Distinct(), "Zip", worker.Zip);
             return View(worker);

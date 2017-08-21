@@ -5,69 +5,99 @@
     Layout = "~/Views/Shared/_WorkerLayout.cshtml";
 }
 
-<h2>Customer's Receiving Pickups</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
 
-<table class="table">
-    @*<thead>
+</head>
+<body>
+    <h2>Customer's Receiving Pickups</h2>
+
+    <table class="table">
+        @*<thead>
+                <tr>
+                    <th>Customer</th>
+                </tr>
+            </thead>*@
         <tr>
-            <th>Customer</th>
-        </tr>
-    </thead>*@
-    <tr>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address.Street)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address.State)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address.Zip)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>       
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address.Street)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address.State)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address.Zip)
-        </td>
-    </tr>
-    @*<tr>       
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-        </td>
-    </tr>*@
-}
-<tr>
-    <td>
-        @Html.ActionLink("Back", "IndexRoute", "Workers")
-    </td>
-</tr>
-</table>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address.Zip)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address.Street)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address.Zip)
+                </td>
+            </tr>
+            @*<tr>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                </tr>*@
+        }
+        <tr>
+            <td>
+                @Html.ActionLink("Back", "IndexRoute", "Workers")
+            </td>
+        </tr>
+    </table>
+
+    <h1>Customers in Google Map</h1>
+
+    <div id="googleMap" style="width:100%;height:400px;"></div>
+    <script>
+        function myMap() {
+            var mapProp = {
+                center: new google.maps.LatLng(51.508742, -0.120850),
+                zoom: 5,
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            //var marker = new google.maps.Marker({ position: 53218 });
+            //marker.setMap(map);
+        }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVjNbp0z7IvxQK0P9bdXb3BP7DzSMonLQ&callback=myMap"></script>
+
+</body>
+</html>
