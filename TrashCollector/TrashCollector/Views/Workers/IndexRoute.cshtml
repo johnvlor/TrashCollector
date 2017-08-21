@@ -8,7 +8,8 @@
     <h2>Route</h2>
 
     <p>
-        @Html.ActionLink("Select a Route", "EditRoute")
+        @Html.ActionLink("Select a Route", "EditRoute") |
+        @Html.ActionLink("Display Customers in the Route", "IndexRouteCustomer") 
     </p>
     <table class="table">
         <tr>
@@ -24,11 +25,11 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Zip)
                 </td>
-                @*<td>
-                        @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-                    </td>*@
+                <td>
+                        @*@Html.ActionLink("Display Customers", "IndexRouteCustomer") |*@
+                        @*@Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
+                    </td>
             </tr>
         }
 

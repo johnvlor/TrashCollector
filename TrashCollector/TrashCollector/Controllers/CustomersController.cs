@@ -18,11 +18,23 @@ namespace TrashCollector.Controllers
 
         // GET: Customers
         public ActionResult Index()
-        {
-            ViewBag.AccountRole = "Customer";
-           var loggedUser = User.Identity.GetUserId();
+        {            
+            var loggedUser = User.Identity.GetUserId();
             var customers = db.Customer.Where(c => c.UserID == loggedUser).Include(m => m.Address);
             return View(customers);
+        }
+
+        public ActionResult IndexCustomerRoute()
+        {
+            var loggedUser = User.Identity.GetUserId();
+            var workers =
+                (from w in db.Worker
+                 join c in db.Customer on w.Zip equals c.Address.Zip
+                 join a in db.Address on c.AddressID equals a.ID
+                 where w.UserID == loggedUser && w.Zip == c.Address.Zip
+                 select c).Include("Address"); 
+
+            return View(workers);
         }
 
         // GET: Customers/Details/5
@@ -47,15 +59,6 @@ namespace TrashCollector.Controllers
         public ActionResult Create()
         {
             ViewBag.Email = User.Identity.GetUserName();
-            //ViewBag.AddressID = new SelectList(db.Address, "ID", "Street");
-
-            //var types = db.AccountType.ToList();
-            ////var pickups = db.Pickup.ToList();
-            //Customer customer = new Customer()
-            //{
-            //    AccountTypes = types,
-            //    //Pickups = pickups
-            //};
 
             return View();
         }
@@ -104,7 +107,7 @@ namespace TrashCollector.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Phone,AddressID,Email")] Customer customer, [Bind(Include = "ID,Street,City,State,Zip")] Address address)
+        public ActionResult Edit(Customer customer, Address address)
         {
             if (ModelState.IsValid)
             {

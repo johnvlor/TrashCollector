@@ -18,18 +18,9 @@ namespace TrashCollector.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        //public Address Address { get; set; }
-        //public int AddressID { get; set; }
-
         [Display (Name = "Zip Code")]
         [RegularExpression(@"\d{5}$", ErrorMessage = "Invalid Zip Code")]
         public string Zip { get; set; }
-
-        //public AccountType AccountType { get; set; }
-        //[Display(Name = "Account Type")]
-        //public int AccountTypeID { get; set; }
-
-        //public IEnumerable<AccountType> AccountTypes { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string UserID { get; set; }

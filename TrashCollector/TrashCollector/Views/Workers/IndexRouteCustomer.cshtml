@@ -1,12 +1,18 @@
 ﻿@model IEnumerable<TrashCollector.Models.Worker>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "IndexCustomerRoute";
     Layout = "~/Views/Shared/_WorkerLayout.cshtml";
 }
 
-<h2>Collector Profile</h2>
+<h2>Customer Profile</h2>
 
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    @Html.ActionLink("New Route", "CreateRoute")
+</p>*@
 <table class="table">
     <tr>
         <th>
@@ -19,7 +25,7 @@
             Email
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.Zip)
+            @Html.DisplayNameFor(model => model.Address.Zip)
         </th>*@
         <th></th>
     </tr>
@@ -36,7 +42,7 @@
             @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
         </td>
         @*<td>
-            @Html.DisplayFor(modelItem => item.Zip)
+            @Html.DisplayFor(modelItem => item.Address.Zip)
         </td>*@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

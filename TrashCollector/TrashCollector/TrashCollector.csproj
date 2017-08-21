@@ -363,7 +363,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Controllers\_ViewStart.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -431,11 +430,12 @@
     <Content Include="Views\Billings\Details.cshtml" />
     <Content Include="Views\Billings\Edit.cshtml" />
     <Content Include="Views\Billings\Index.cshtml" />
-    <Content Include="Views\Workers\CreateRoute.cshtml" />
     <Content Include="Views\Workers\IndexRoute.cshtml" />
     <Content Include="Views\Workers\EditRoute.cshtml" />
     <Content Include="Views\Home\IndexCustomer.cshtml" />
     <Content Include="Views\Home\IndexWorker.cshtml" />
+    <Content Include="Views\Workers\IndexRouteCustomer.cshtml" />
+    <Content Include="Views\Customers\IndexCustomerRoute.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
