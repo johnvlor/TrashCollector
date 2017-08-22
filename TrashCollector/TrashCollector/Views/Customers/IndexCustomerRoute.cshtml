@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "IndexCustomerRoute";
     Layout = "~/Views/Shared/_WorkerLayout.cshtml";
+    var today = DateTime.Today.DayOfWeek;
 }
 
 <!DOCTYPE html>
@@ -17,11 +18,11 @@
     <h2>Customer's Receiving Pickups</h2>
 
     <table class="table">
-        @*<thead>
+        <thead>
                 <tr>
-                    <th>Customer</th>
+                    <th>Pickup Day: @today</th>
                 </tr>
-            </thead>*@
+            </thead>
         <tr>
 
             <th>

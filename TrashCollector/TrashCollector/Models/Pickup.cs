@@ -11,19 +11,11 @@ namespace TrashCollector.Models
         [Key]
         public int ID { get; set; }
 
-        [Display(Name = "Pick Up Day")]
+        [Display(Name = "Pickup Day")]
         public string Day { get; set; }
 
-        [Display(Name = "New Pick Up Day")]
+        [Display(Name = "New Pickup Day")]
         public string AlternateDay { get; set; }
 
-        //[Display(Name = "Temporary or Permanent")]
-        //public string TempOrPermanent { get; set; }
-
-        //[Display(Name = "Start Date")]
-        //public DateTime StartDate { get; set; }
-
-        //[Display(Name = "End Date")]
-        //public DateTime EndDate { get; set; }
     }
 }

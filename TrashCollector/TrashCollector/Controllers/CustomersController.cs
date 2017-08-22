@@ -26,15 +26,24 @@ namespace TrashCollector.Controllers
 
         public ActionResult IndexCustomerRoute()
         {
+            var today = DateTime.Today.DayOfWeek;
             var loggedUser = User.Identity.GetUserId();
             var workers =
                 (from w in db.Worker
                  join c in db.Customer on w.Zip equals c.Address.Zip
                  join a in db.Address on c.AddressID equals a.ID
-                 where w.UserID == loggedUser && w.Zip == c.Address.Zip
+                 join p in db.Pickup on c.PickupID equals p.ID
+                 where w.UserID == loggedUser && w.Zip == c.Address.Zip && c.Pickup.Day == today.ToString()
                  select c).Include("Address"); 
 
             return View(workers);
+        }
+
+        public ActionResult IndexHolds()
+        {
+            var loggedUser = User.Identity.GetUserId();
+            var customers = db.Customer.Where(c => c.UserID == loggedUser);
+            return View(customers);
         }
 
         // GET: Customers/Details/5
@@ -116,6 +125,49 @@ namespace TrashCollector.Controllers
                 return RedirectToAction("Index");
             }
             //ViewBag.AddressID = new SelectList(db.Address, "ID", "Street", customer.AddressID);
+            return View(customer);
+        }
+
+        // GET: Customers/EditHolds/5
+        public ActionResult EditHolds()
+        {
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Customer customer = db.Customer.Find(id);
+            var loggedUser = User.Identity.GetUserId();
+            var customers = db.Customer.Single(c => c.UserID == loggedUser);
+
+            if (customers == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(customers);
+        }
+
+        // POST: Customers/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditHolds(Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                var loggedUser = User.Identity.GetUserId();
+                var customers = db.Customer.Single(w => w.UserID == loggedUser);
+
+                customers.StartDate = customer.StartDate;
+                customers.EndDate = customer.EndDate;
+                customers.Comment = customer.Comment;
+
+                db.Entry(customers).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+           
             return View(customer);
         }
 

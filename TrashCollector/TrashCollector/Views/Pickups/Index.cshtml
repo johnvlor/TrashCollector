@@ -15,9 +15,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Day)
         </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.AlternateDay)*@
-        </th>
         <th></th>
     </tr>
 
@@ -26,14 +23,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.Day)
         </td>
-        <td>
-            @*@Html.DisplayFor(modelItem => item.AlternateDay)*@
-        </td>
     </tr>
     <tr>
         <td>
-            @Html.ActionLink("Change Pickup Day", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) 
+            @Html.ActionLink("Change Pickup Day", "Edit", new { id = item.ID }) | 
+            @Html.ActionLink("Check for Pickup Holds", "IndexHolds", "Customers")
+            @*@Html.ActionLink("Details", "Details", new { id = item.ID })*@ 
             @*@Html.ActionLink("Delete", "Delete", new { id=item.ID })*@
         </td>
     </tr>

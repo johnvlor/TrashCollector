@@ -338,6 +338,10 @@
     <Compile Include="Migrations\201708201813223_RemoveAddressForeignkeyFromWorker.Designer.cs">
       <DependentUpon>201708201813223_RemoveAddressForeignkeyFromWorker.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708220308568_AddDateColumnsToCustomer.cs" />
+    <Compile Include="Migrations\201708220308568_AddDateColumnsToCustomer.Designer.cs">
+      <DependentUpon>201708220308568_AddDateColumnsToCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountType.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -436,6 +440,8 @@
     <Content Include="Views\Home\IndexWorker.cshtml" />
     <Content Include="Views\Workers\IndexRouteCustomer.cshtml" />
     <Content Include="Views\Customers\IndexCustomerRoute.cshtml" />
+    <Content Include="Views\Customers\EditHolds.cshtml" />
+    <Content Include="Views\Customers\IndexHolds.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -560,6 +566,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708201813223_RemoveAddressForeignkeyFromWorker.resx">
       <DependentUpon>201708201813223_RemoveAddressForeignkeyFromWorker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708220308568_AddDateColumnsToCustomer.resx">
+      <DependentUpon>201708220308568_AddDateColumnsToCustomer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
