@@ -68,7 +68,7 @@ namespace TrashCollector.Controllers
 
                 //db.Pickup.Add(pickup);
                 //db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Customers");
             }
 
             ViewBag.PickupId = new SelectList(db.Pickup, "ID", "Day", customer.PickupID);

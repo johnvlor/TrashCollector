@@ -60,14 +60,13 @@ namespace TrashCollector.Controllers
                     break;
             }
             
-            for (DateTime dt = startDate; dt < endDate; dt = dt.AddDays(1.0))
+            for (DateTime i = startDate; i < endDate; i = i.AddDays(1.0))
             {
-                if (dt.DayOfWeek == dow)
+                if (i.DayOfWeek == dow)
                 {
                     count++;
                 }
             }
-
             return count;
         }
 

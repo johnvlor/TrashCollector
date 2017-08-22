@@ -43,6 +43,7 @@ namespace TrashCollector.Controllers
         // GET: Workers/Create
         public ActionResult Create()
         {
+            ViewBag.Email = User.Identity.GetUserName();
             return View();
         }
 

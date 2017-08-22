@@ -342,6 +342,10 @@
     <Compile Include="Migrations\201708220308568_AddDateColumnsToCustomer.Designer.cs">
       <DependentUpon>201708220308568_AddDateColumnsToCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708221322375_SetDateAsNull.cs" />
+    <Compile Include="Migrations\201708221322375_SetDateAsNull.Designer.cs">
+      <DependentUpon>201708221322375_SetDateAsNull.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountType.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -569,6 +573,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708220308568_AddDateColumnsToCustomer.resx">
       <DependentUpon>201708220308568_AddDateColumnsToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708221322375_SetDateAsNull.resx">
+      <DependentUpon>201708221322375_SetDateAsNull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

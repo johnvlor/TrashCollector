@@ -103,11 +103,12 @@ namespace TrashCollector.Controllers
             }
             //Customer customer = db.Customer.Find(id);
             var customers = db.Customer.Include(m => m.Address).SingleOrDefault(m => m.ID == id);
+
             if (customers == null)
             {
                 return HttpNotFound();
             }
-            //ViewBag.AddressID = new SelectList(db.Address, "ID", "Street", customer.AddressID);
+
             return View(customers);
         }
 
@@ -131,10 +132,6 @@ namespace TrashCollector.Controllers
         // GET: Customers/EditHolds/5
         public ActionResult EditHolds()
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
             //Customer customer = db.Customer.Find(id);
             var loggedUser = User.Identity.GetUserId();
             var customers = db.Customer.Single(c => c.UserID == loggedUser);

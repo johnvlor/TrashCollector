@@ -6,6 +6,12 @@
     var today = DateTime.Now.Date;
 }
 
+<style type="text/css">
+    .blueText {
+        color: #0000FF;
+    }
+</style>
+
 <h2>Hold Pickups</h2>
 
 <p>
@@ -38,13 +44,12 @@
     </tr>
 
 @foreach (var item in Model)
-{
-     
+{    
         if (item.EndDate == null || item.EndDate < today)
         {
-            <tr>
-                There are currently no pickup holds in place.
-            </tr>
+            <p>
+                <span class="blueText">There are currently no pickup holds in place.</span>
+            </p>
         }
         else
         {

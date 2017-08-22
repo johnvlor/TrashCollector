@@ -39,11 +39,11 @@ namespace TrashCollector.Models
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Start Date")]
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "End Date")]
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         [Display(Name = "Reason")]
         public string Comment { get; set; }
