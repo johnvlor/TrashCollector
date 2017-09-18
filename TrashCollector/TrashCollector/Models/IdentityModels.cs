@@ -12,14 +12,6 @@ namespace TrashCollector.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        //[ForeignKey("Customer")]
-        //public Customer Customer { get; set; }
-        //public int CustomerID { get; set; }
-
-        //[ForeignKey("Worker")]       
-        //public int? WorkerID { get; set; }
-        //public Worker Worker { get; set; }
-
         [ForeignKey("AccountType")]        
         [Display(Name = "Account Type")]
         public int AccountTypeID { get; set; }
@@ -32,6 +24,7 @@ namespace TrashCollector.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim("AccountTypeID", this.AccountTypeID.ToString()));
             return userIdentity;
         }
     }
