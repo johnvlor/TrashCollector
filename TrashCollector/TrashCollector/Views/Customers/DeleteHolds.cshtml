@@ -1,0 +1,65 @@
+﻿@model TrashCollector.Models.Customer
+
+@{
+    ViewBag.Title = "DeleteHolds";
+    //Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h2>Remove Pickup Holds</h2>
+
+<h3>Are you sure you want to remove this?</h3>
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Remove" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    //Layout = "~/Views/Shared/_CustomerLayout.cshtml";
     int PickupsOwed = (int)ViewBag.pickupDaysOwed;
     DateTime? date = DateTime.Now;
 }
@@ -33,7 +33,7 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td colspan="2">
             @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |*@
             @Html.ActionLink("Details", "Details", new { id = item.ID })
             @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@

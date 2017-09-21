@@ -41,8 +41,21 @@ namespace TrashCollector.Controllers
 
         public ActionResult IndexHolds()
         {
+            var today = DateTime.Now;
+
             var loggedUser = User.Identity.GetUserId();
-            var customers = db.Customer.Where(c => c.UserID == loggedUser);
+            var customers = db.Customer.Single(c => c.UserID == loggedUser);
+
+            if(customers.EndDate < today)
+            {
+                customers.StartDate = null;
+                customers.EndDate = null;
+                customers.Comment = null;
+
+                db.Entry(customers).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            
             return View(customers);
         }
 
@@ -192,6 +205,39 @@ namespace TrashCollector.Controllers
             Customer customer = db.Customer.Find(id);
             db.Customer.Remove(customer);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteHolds(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var customers = db.Customer.Include(m => m.Address).SingleOrDefault(m => m.ID == id);
+            if (customers == null)
+            {
+                return HttpNotFound();
+            }
+            return View(customers);
+        }
+
+        // POST: Customers/Delete/5
+        [HttpPost, ActionName("DeleteHolds")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteHoldsConfirmed(int id)
+        {
+            Customer customer = db.Customer.Find(id);
+
+            customer.StartDate = null;
+            customer.EndDate = null;
+            customer.Comment = null;
+
+            db.Entry(customer).State = EntityState.Modified;
+            db.SaveChanges();
+
+            //db.Customer.Remove(customer);
+            //db.SaveChanges();
             return RedirectToAction("Index");
         }
 
