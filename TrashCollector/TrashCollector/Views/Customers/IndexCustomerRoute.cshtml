@@ -34,7 +34,7 @@
     <table class="table">
         <thead>
                 <tr>
-                    <th>Pickup Day: @today</th>
+                    <th colspan="6">Pickup Day: @today</th>
                 </tr>
             </thead>
         <tr>
@@ -82,18 +82,12 @@
                     @Html.DisplayFor(modelItem => item.Address.Zip)
                 </td>
             </tr>
-            @*<tr>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                    </td>
-                </tr>*@
+
             }
         
         
         <tr>
-            <td>
+            <td colspan="6">
                 @Html.ActionLink("Back", "IndexRoute", "Workers")
             </td>
         </tr>
@@ -106,7 +100,7 @@
         function myMap() {
             var mapProp = {
                 center: new google.maps.LatLng(51.508742, -0.120850),
-                zoom: 5,
+                zoom: 15,
             };
             var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
             //var marker = new google.maps.Marker({ position: 53218 });

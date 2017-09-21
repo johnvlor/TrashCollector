@@ -27,13 +27,15 @@ namespace TrashCollector.Controllers
         public ActionResult IndexCustomerRoute()
         {
             var today = DateTime.Today.DayOfWeek;
+            var todayDate = DateTime.Now;
+
             var loggedUser = User.Identity.GetUserId();
             var workers =
                 (from w in db.Worker
                  join c in db.Customer on w.Zip equals c.Address.Zip
                  join a in db.Address on c.AddressID equals a.ID
                  join p in db.Pickup on c.PickupID equals p.ID
-                 where w.UserID == loggedUser && w.Zip == c.Address.Zip && c.Pickup.Day == today.ToString()
+                 where w.UserID == loggedUser && w.Zip == c.Address.Zip && c.Pickup.Day == today.ToString() && c.EndDate < todayDate
                  select c).Include("Address"); 
 
             return View(workers);
